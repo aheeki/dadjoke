@@ -10,10 +10,15 @@ with open('jokes.json') as json_data_file:
 
 
 @app.route("/", methods=['GET', 'POST'])
-def dadjoke_ready(): 
-    resp = twilio.twiml.Response()
-    resp.message(jokes[randint(0,len(jokes)-1)])
-    return str(resp)
+def dadjoke_ready():
+
+    txt = request.values.get('Body').lower()
+    dad_joke = ['dad joke', 'dadjoke', 'dad-joke']
+    #if txt is received asking for a dad joke
+    if any(x in txt for x in dad_joke):
+        resp = twilio.twiml.Response()
+        resp.sms(jokes[randint(0,len(jokes)-1)])
+        return str(resp)
 
 
 if __name__ == "__main__":

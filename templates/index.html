@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block body %}
+<div id="main" class="container">
+  <h2>All Items</h2>
+  <table class="table table-hover">
+    <tr>
+      <th>MessageSid
+      <th>From
+      <th>To
+      <th>Body
+    {%- for message in messages %}
+      <td>{{ message.msgId }}
+      <td>{{ message.msgFrom }}
+      <td>{{ message.msgTo }}
+      <td>{{ message.msgBody }}            
+      <td>{{ message.pub_date.strftime('%Y-%m-%d %H:%M') }}
+    {%- endfor %}
+  </table>
+</div>
+{% endblock %}

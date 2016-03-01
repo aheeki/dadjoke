@@ -5,7 +5,7 @@ postgres:
   environment:
     - DB_USER=admin
     - DB_PASS=admin
-    - DB_NAME=todo
+    - DB_NAME=message
 
 app:
   build: .

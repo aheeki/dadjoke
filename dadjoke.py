@@ -22,7 +22,7 @@ class Message(db.Model):
     msgBody = db.Column(db.String(1600))
     pub_date = db.Column(db.DateTime)
 
-    def __init__(self, msgID, msgFrom, msgTo, msgBody):
+    def __init__(self, msgId, msgFrom, msgTo, msgBody):
         self.msgId = msgId
         self.msgFrom = msgFrom
         self.msgTo = msgTo

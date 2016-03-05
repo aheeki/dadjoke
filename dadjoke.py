@@ -30,8 +30,12 @@ class Message(db.Model):
 
 # db.create_all()
 
+@app.route('/', methods=['GET'])
+def index():
+    return render_template('index.html',
+            messages = Message.query.order_by(Message.pub_date.desc()).all())
 
-@app.route('/test', methods=['GET', 'POST'])
+@app.route('/joke', methods=['GET', 'POST'])
 def dadjoke_ready():
     txt = request.values.get('Body').lower()
     dad_joke = ['dad joke', 'dadjoke', 'dad-joke']

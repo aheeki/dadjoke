@@ -31,7 +31,7 @@ class Message(db.Model):
 # db.create_all()
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/test', methods=['GET', 'POST'])
 def dadjoke_ready():
     txt = request.values.get('Body').lower()
     dad_joke = ['dad joke', 'dadjoke', 'dad-joke']

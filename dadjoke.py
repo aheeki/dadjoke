@@ -1,4 +1,4 @@
-import twilio.twiml, json
+# import twilio.twiml, json
 from random import randint
 from flask import Flask, request, flash, redirect, render_template, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
@@ -37,21 +37,21 @@ def index():
             messages = Message.query.order_by(Message.pub_date.desc()).all()
         )
 
-@app.route('/joke', methods=['GET', 'POST'])
-def dadjoke_ready():
-    txt = request.values.get('Body').lower()
-    dad_joke = ['dad joke', 'dadjoke', 'dad-joke']
-    #if txt is received asking for a dad joke
-    if any(x in txt for x in dad_joke):
-        resp = twilio.twiml.Response()
-        resp.sms(jokes[randint(0,len(jokes)-1)])
+# @app.route('/joke', methods=['GET', 'POST'])
+# def dadjoke_ready():
+#     txt = request.values.get('Body').lower()
+#     dad_joke = ['dad joke', 'dadjoke', 'dad-joke']
+#     #if txt is received asking for a dad joke
+#     if any(x in txt for x in dad_joke):
+#         resp = twilio.twiml.Response()
+#         resp.sms(jokes[randint(0,len(jokes)-1)])
 
-        message = Message(request.values.get('MessageSid'), request.values.get('From'),
-            request.values.get('To'), request.values.get('Body'))
-        db.session.add(message)
-        db.session.commit()
+#         message = Message(request.values.get('MessageSid'), request.values.get('From'),
+#             request.values.get('To'), request.values.get('Body'))
+#         db.session.add(message)
+#         db.session.commit()
 
-        return redirect(url_for('index'))
+#         return redirect(url_for('index'))
 
 
 if __name__ == "__main__":

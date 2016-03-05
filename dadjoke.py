@@ -28,16 +28,10 @@ class Message(db.Model):
         self.msgBody = msgBody
         self.pub_date = datetime.utcnow()
 
-db.create_all()
+# db.create_all()
 
 
-@app.route('/', methods=['GET'])
-def index():
-    return render_template('index.html',
-            messages = Message.query.order_by(Message.pub_date.desc()).all()
-        )
-
-@app.route('/joke', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def dadjoke_ready():
     txt = request.values.get('Body').lower()
     dad_joke = ['dad joke', 'dadjoke', 'dad-joke']

@@ -31,13 +31,13 @@ class Message(db.Model):
 db.create_all()
 
 
-@app.route('/joke', methods=['GET'])
+@app.route('/', methods=['GET'])
 def index():
     return render_template('index.html',
             messages = Message.query.order_by(Message.pub_date.desc()).all()
         )
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/joke', methods=['GET', 'POST'])
 def dadjoke_ready():
     txt = request.values.get('Body').lower()
     dad_joke = ['dad joke', 'dadjoke', 'dad-joke']
@@ -51,7 +51,7 @@ def dadjoke_ready():
         db.session.add(message)
         db.session.commit()
 
-        return redirect(url_for('index'))
+        return str(resp)
 
 
 if __name__ == "__main__":

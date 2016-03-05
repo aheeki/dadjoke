@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:flaskpass@198.199.65.115:5432/flaskdb'
 db = SQLAlchemy(app)
 
 # cue the deer

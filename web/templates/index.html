@@ -18,14 +18,12 @@
     <tr>
       <th>MessageSid
       <th>From
-      <th>To
       <th>Body
       <th>Time
     {%- for message in messages %}
     <tr>
       <td>{{ message.msgId }}
       <td>{{ message.msgFrom }}
-      <td>{{ message.msgTo }}
       <td>{{ message.msgBody }}            
       <td>{{ message.date_posted.strftime('%Y-%m-%d %H:%M') }}
     {%- endfor %}

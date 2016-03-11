@@ -7,7 +7,7 @@ from config import BaseConfig
 app = Flask(__name__)
 app.config.from_object(BaseConfig)
 db = SQLAlchemy(app)
-redis = Redis()
+redis = Redis(host='redis', port=6379)
 
 
 #cue the jokes

@@ -32,8 +32,7 @@ def dadjoke_ready():
         resp = twilio.twiml.Response()
         resp.sms(jokes[randint(0,len(jokes)-1)])
 
-        message = Message(request.values.get('MessageSid'), senderNum,
-            request.values.get('To'), txt)
+        message = Message(request.values.get('MessageSid'), senderNum, txt)
         db.session.add(message)
         db.session.commit()
 

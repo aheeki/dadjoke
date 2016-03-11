@@ -3,5 +3,6 @@
 venv
 .env
 *.pyc
+*.rdb
 __pycache__
 blog_old.md

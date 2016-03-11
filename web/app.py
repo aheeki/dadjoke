@@ -26,15 +26,22 @@ def dadjoke_ready():
     dad_joke = ['dad joke', 'dadjoke', 'dad-joke']
     #if txt is received asking for a dad joke
     if any(x in txt for x in dad_joke):
+        senderNum = request.values.get('From')
+        print(newJoke(senderNum))
+
         resp = twilio.twiml.Response()
         resp.sms(jokes[randint(0,len(jokes)-1)])
 
-        message = Message(request.values.get('MessageSid'), request.values.get('From'),
-            request.values.get('To'), request.values.get('Body'))
+        message = Message(request.values.get('MessageSid'), senderNum,
+            request.values.get('To'), txt)
         db.session.add(message)
         db.session.commit()
 
         return str(resp)
+
+def newJoke(phoneNum):
+    phoneNum = phoneNum
+    return phoneNum
 
 
 if __name__ == '__main__':

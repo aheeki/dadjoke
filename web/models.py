@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, timedelta
 from app import db
 
 class Message(db.Model):
@@ -14,4 +14,4 @@ class Message(db.Model):
         self.msgFrom = msgFrom
         self.msgTo = msgTo
         self.msgBody = msgBody
-        self.date_posted = datetime.datetime.now()
+        self.date_posted = datetime.datetime.now()-timedelta(hours=5)

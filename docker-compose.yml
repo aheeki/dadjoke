@@ -5,6 +5,7 @@ web:
     - "8000"
   links:
     - postgres:postgres
+    - redis:redis
   volumes:
     - /usr/src/app/static
   env_file: .env
@@ -35,3 +36,11 @@ postgres:
     - data
   ports:
     - "5432:5432"
+
+redis:
+  restart: always
+  image: redis:latest
+  volumes:
+    - /var/lib/redis
+  ports:
+    - "6379:6379"    

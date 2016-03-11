@@ -1,4 +1,5 @@
 import twilio.twiml, json, random
+from redis import Redis
 from flask import Flask, request, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 from config import BaseConfig
@@ -6,6 +7,8 @@ from config import BaseConfig
 app = Flask(__name__)
 app.config.from_object(BaseConfig)
 db = SQLAlchemy(app)
+redis = Redis()
+
 
 #cue the jokes
 with open('jokes.json') as json_data_file:
@@ -20,12 +23,14 @@ def index():
 
 @app.route('/joke', methods=['POST'])
 def dadjoke_ready():
-    txt = request.values.get('Body').lower()
+    redis.incr('jokesTold')
+    print(redis.get('jokesTold'))
+    txt = request.values.get('Body')
     dad_joke = ['dad joke', 'dadjoke', 'dad-joke']
     #if txt is received asking for a dad joke
-    if any(x in txt for x in dad_joke):
+    if any(x in txt.lower() for x in dad_joke):
         senderNum = request.values.get('From')
-        
+
         resp = twilio.twiml.Response()
         resp.sms(newJoke(senderNum))
 

@@ -1,9 +1,7 @@
-import twilio.twiml, json
-from random import randint
+import twilio.twiml, json, random
 from flask import Flask, request, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 from config import BaseConfig
-
 
 app = Flask(__name__)
 app.config.from_object(BaseConfig)
@@ -27,10 +25,9 @@ def dadjoke_ready():
     #if txt is received asking for a dad joke
     if any(x in txt for x in dad_joke):
         senderNum = request.values.get('From')
-        print(newJoke(senderNum))
-
+        
         resp = twilio.twiml.Response()
-        resp.sms(jokes[randint(0,len(jokes)-1)])
+        resp.sms(newJoke(senderNum))
 
         message = Message(request.values.get('MessageSid'), senderNum, txt)
         db.session.add(message)
@@ -39,8 +36,8 @@ def dadjoke_ready():
         return str(resp)
 
 def newJoke(phoneNum):
-    phoneNum = phoneNum
-    return phoneNum
+    joke = random.choice(jokes)
+    return joke
 
 
 if __name__ == '__main__':

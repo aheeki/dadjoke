@@ -30,17 +30,18 @@ def index():
 @app.route('/joke', methods=['POST'])
 def dadjoke_ready():
     txt = request.values.get('Body')
+    senderNum = request.values.get('From')    
     dad_joke = ['dad joke', 'dadjoke', 'dad-joke']
+    resp = twilio.twiml.Response()
     #if txt is received asking for a dad joke
     if any(x in txt.lower() for x in dad_joke):
-        senderNum = request.values.get('From')
-        resp = twilio.twiml.Response()
+        message = Message(request.values.get('MessageSid'), senderNum, txt, True)
         resp.sms(newJoke(senderNum))
-        message = Message(request.values.get('MessageSid'), senderNum, txt)
-        db.session.add(message)
-        db.session.commit()
-        return str(resp)
-
+    else:
+        message = Message(request.values.get('MessageSid'), senderNum, txt, False)        
+    db.session.add(message)
+    db.session.commit()
+    return str(resp)
 
 def newJoke(phoneNum):
     # check if all jokes have already been told to phoneNum

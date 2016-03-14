@@ -7,10 +7,12 @@ class Message(db.Model):
     msgId = db.Column('messageSid', db.String, primary_key=True)
     msgFrom = db.Column(db.String(20))
     msgBody = db.Column(db.String(1600))
+    dadjoke = db.Column(db.Boolean)
     date_posted = db.Column(db.DateTime, nullable=False)
 
-    def __init__(self, msgId, msgFrom, msgBody):
+    def __init__(self, msgId, msgFrom, msgBody, dadjoke):
         self.msgId = msgId
         self.msgFrom = msgFrom
         self.msgBody = msgBody
+        self.dadjoke = dadjoke
         self.date_posted = datetime.datetime.now()-timedelta(hours=5)

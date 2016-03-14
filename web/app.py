@@ -41,7 +41,11 @@ def dadjoke_ready():
         db.session.commit()
         return str(resp)
 
+
 def newJoke(phoneNum):
+    # check if all jokes have already been told to phoneNum
+    if (redis.scard(phoneNum+'_timestamp')==len(jokes)):
+        return 'Dad\'s out of jokes. Send in your own: andrewheekin@gmail.com'
     # create a new set [0, 1...len(jokes)] if not already exists
     if (redis.exists(phoneNum)==False):
         redis.sadd(phoneNum, *range(len(jokes)))

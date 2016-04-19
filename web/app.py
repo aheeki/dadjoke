@@ -1,5 +1,4 @@
-import twilio.twiml, json, random
-import datetime
+import twilio.twiml, json, random, datetime
 from datetime import timedelta
 from redis import Redis
 from flask import Flask, request, render_template
@@ -56,7 +55,6 @@ def newJoke(phoneNum):
         rand, ', ', 'joke set: ', redis.smembers(phoneNum))
     # track the timestamps
     redis.sadd(phoneNum+'_timestamp', [rand, datetime.datetime.now()-timedelta(hours=5)])    
-    # convert string to int
     rand = int(rand)
     return jokes[rand]
 

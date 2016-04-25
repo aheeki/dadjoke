@@ -43,4 +43,4 @@ redis:
   volumes:
     - /var/lib/redis
   ports:
-    - "6379:6379"    
+    - "6379:6379"

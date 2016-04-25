@@ -1,0 +1,7 @@
+web:
+  restart: always  
+  build: .
+  ports:
+    - "80:80"
+  volumes:
+    - .:/usr/src/app

@@ -20,7 +20,7 @@ with open('jokes.json') as json_data_file:
 from models import *
 
 
-@app.route('/', methods=['GET'])
+@app.route('/home', methods=['GET'])
 def index():
     redis.incr('pageViews')
     messages = Message.query.order_by(Message.date_posted.desc()).all()

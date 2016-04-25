@@ -1,3 +1,11 @@
+client:
+  restart: always  
+  build: ./client
+  ports:
+    - "3000:80"
+  volumes:
+    - .:/usr/src/app
+
 web:
   restart: always
   build: ./web

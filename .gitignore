@@ -6,3 +6,6 @@ venv
 *.rdb
 __pycache__
 blog_old.md
+/node_modules
+bundle.js
+npm-debug.log

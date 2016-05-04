@@ -1,7 +1,7 @@
 import twilio.twiml, json, random, datetime, requests
 from datetime import timedelta
 from redis import Redis
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 from config import BaseConfig
 

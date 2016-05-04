@@ -3,6 +3,7 @@ from datetime import timedelta
 from redis import Redis
 from flask import Flask, request, render_template, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.cors import CORS
 from config import BaseConfig
 
 
@@ -64,6 +65,6 @@ def getWeather():
     return jsonify(r.json())
 
 
-
+cors = CORS(app)
 if __name__ == '__main__':
     app.run()    

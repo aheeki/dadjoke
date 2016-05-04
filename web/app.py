@@ -1,4 +1,4 @@
-import twilio.twiml, json, random, datetime
+import twilio.twiml, json, random, datetime, requests
 from datetime import timedelta
 from redis import Redis
 from flask import Flask, request, render_template
@@ -57,6 +57,13 @@ def newJoke(phoneNum):
     redis.sadd(phoneNum+'_timestamp', [rand, datetime.datetime.now()-timedelta(hours=5)])    
     rand = int(rand)
     return jokes[rand]
+
+@app.route('/weather', methods=['GET'])
+def getWeather():
+    results = requests.get('http://api.openweathermap.org/data/2.5/forecast?appid=4c40a0d755de649556b47f6d30a69acb&q=atlanta,us')
+
+    return jsonify(results)
+
 
 
 if __name__ == '__main__':

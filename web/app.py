@@ -1,7 +1,7 @@
 import twilio.twiml, json, random, datetime, requests
 from datetime import timedelta
 from redis import Redis
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 from config import BaseConfig
 
@@ -60,9 +60,8 @@ def newJoke(phoneNum):
 
 @app.route('/weather', methods=['GET'])
 def getWeather():
-    results = requests.get('http://api.openweathermap.org/data/2.5/forecast?appid=4c40a0d755de649556b47f6d30a69acb&q=atlanta,us')
-
-    return jsonify(results)
+    r = requests.get('http://api.openweathermap.org/data/2.5/forecast?appid=4c40a0d755de649556b47f6d30a69acb&q=atlanta,us')
+    return jsonify(r.json())
 
 
 

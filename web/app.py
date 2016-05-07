@@ -10,6 +10,7 @@ from config import BaseConfig
 app = Flask(__name__)
 app.config.from_object(BaseConfig)
 db = SQLAlchemy(app)
+cors = CORS(app)
 redis = Redis(host='redis', port=6379)
 
 
@@ -64,7 +65,19 @@ def getWeather():
     r = requests.get('http://api.openweathermap.org/data/2.5/forecast?appid=4c40a0d755de649556b47f6d30a69acb&q=atlanta,us')
     return jsonify(r.json())
 
+@app.route('/pageviews', methods=['GET'])
+def getPageviews():
+    return jsonify({"pageviews":int(redis.get('pageViews'))})
 
-cors = CORS(app)
+@app.route('/jokesTold', methods=['GET'])
+def getJokesTold():
+    results = []
+    messages = Message.query.order_by(Message.date_posted.desc()).all()
+    for message in messages:
+        results.append(message.serialize)
+    return jsonify(jokesTold = results)
+
+
+
 if __name__ == '__main__':
     app.run()    

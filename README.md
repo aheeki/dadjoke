@@ -1,2 +1,2 @@
 # dadjoke
-ask and you shall receive (a dad joke)
+ask and you shall receive a dad joke

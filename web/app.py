@@ -1,4 +1,4 @@
-import twilio.twiml, json, random, datetime, requests
+import twilio.twiml, json, random, datetime
 from datetime import timedelta
 from redis import Redis
 from flask import Flask, request, render_template, jsonify
@@ -21,12 +21,6 @@ with open('jokes.json') as json_data_file:
 
 from models import *
 
-
-@app.route('/', methods=['GET'])
-def index():
-    redis.incr('pageViews')
-    messages = Message.query.order_by(Message.date_posted.desc()).all()
-    return render_template('index.html', messages=messages, pageviews=int(redis.get('pageViews')))
 
 @app.route('/joke', methods=['POST'])
 def dadjoke_ready():
@@ -60,17 +54,13 @@ def newJoke(phoneNum):
     rand = int(rand)
     return jokes[rand]
 
-@app.route('/weather', methods=['GET'])
-def getWeather():
-    r = requests.get('http://api.openweathermap.org/data/2.5/forecast?appid=4c40a0d755de649556b47f6d30a69acb&q=atlanta,us')
-    return jsonify(r.json())
-
 @app.route('/pageviews', methods=['GET'])
 def getPageviews():
     return jsonify({"pageviews":int(redis.get('pageViews'))})
 
-@app.route('/jokesTold', methods=['GET'])
+@app.route('/jokestold', methods=['GET'])
 def getJokesTold():
+    redis.incr('pageViews')    
     results = []
     messages = Message.query.order_by(Message.date_posted.desc()).all()
     for message in messages:

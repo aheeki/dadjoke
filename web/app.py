@@ -52,8 +52,7 @@ def newJoke(phoneNum):
     # track the timestamps
     redis.sadd(phoneNum+'_timestamp', [rand, datetime.datetime.now()-timedelta(hours=5)])    
     rand = int(rand)
-    # %0a indicates line break
-    return jokes[rand] + '\n\n👔http://dadjokebot.com'
+    return jokes[rand] + ' - 👔http://dadjokebot.com'
 
 @app.route('/pageviews', methods=['GET'])
 def getPageviews():

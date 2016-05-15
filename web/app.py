@@ -21,16 +21,6 @@ with open('jokes.json') as json_data_file:
 
 from models import *
 
-@app.route('/sendJoke', methods=['POST'])
-def sendJoke():
-    txt = '-from web-'
-    senderNum = request.values.get('phone')    
-    resp = twilio.twiml.Response()
-    resp.sms(newJoke(senderNum))
-    message = Message(request.values.get('MessageSid'), senderNum, txt, True)
-    db.session.add(message)
-    db.session.commit()
-    return str(resp)
 
 @app.route('/joke', methods=['POST'])
 def dadjoke_ready():

@@ -13,7 +13,7 @@ app.config.from_object(BaseConfig)
 db = SQLAlchemy(app)
 cors = CORS(app)
 redis = Redis(host='redis', port=6379)
-client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
+client = TwilioRestClient(app.config["ACCOUNT_SID"], app.config["AUTH_TOKEN"])
 
 
 #cue the jokes
@@ -27,7 +27,7 @@ from models import *
 def jokeWeb():
     phone = request.values.get('phone')
     joke = newJoke(phone)
-    resp = client.messages.create(to=phone, from_=TWILIO_PHONE, body=joke)
+    resp = client.messages.create(to=phone, from_=app.config["TWILIO_PHONE"], body=joke)
     message = Message(resp.sid, phone, '', True)    
     db.session.add(message)
     db.session.commit()    

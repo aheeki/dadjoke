@@ -1,4 +1,5 @@
 import twilio.twiml, json, random, datetime
+from twilio.rest import TwilioRestClient
 from datetime import timedelta
 from redis import Redis
 from flask import Flask, request, render_template, jsonify
@@ -12,6 +13,7 @@ app.config.from_object(BaseConfig)
 db = SQLAlchemy(app)
 cors = CORS(app)
 redis = Redis(host='redis', port=6379)
+client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN)
 
 
 #cue the jokes
@@ -21,6 +23,15 @@ with open('jokes.json') as json_data_file:
 
 from models import *
 
+@app.route('/jokeWeb', methods=['POST'])
+def jokeWeb():
+    phone = request.values.get('phone')
+    joke = newJoke(phone)
+    resp = client.messages.create(to=phone, from_=TWILIO_PHONE, body=joke)
+    message = Message(resp.sid, phone, '', True)    
+    db.session.add(message)
+    db.session.commit()    
+    return str(resp)
 
 @app.route('/joke', methods=['POST'])
 def dadjoke_ready():

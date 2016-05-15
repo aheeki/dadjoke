@@ -12,3 +12,6 @@ class BaseConfig(object):
         DB_USER, DB_PASS, DB_SERVICE, DB_PORT, DB_NAME
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = True
+    ACCOUNT_SID = os.environ['ACCOUNT_SID']
+    AUTH_TOKEN = os.environ['AUTH_TOKEN']
+    TWILIO_PHONE = os.environ['TWILIO_PHONE']

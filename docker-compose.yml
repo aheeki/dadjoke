@@ -14,10 +14,6 @@ nginx:
   build: ./nginx/
   ports:
     - "80:80"
-  volumes:
-    - /www/static
-  volumes_from:
-    - web
   links:
     - web:web
 

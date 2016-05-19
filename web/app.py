@@ -23,6 +23,7 @@ with open('jokes.json') as json_data_file:
 
 from models import *
 
+
 @app.route('/jokeWeb', methods=['POST'])
 def jokeWeb():
     phone = request.values.get('phone')
@@ -31,7 +32,7 @@ def jokeWeb():
     message = Message(resp.sid, phone, '', True)    
     db.session.add(message)
     db.session.commit()    
-    return str(resp)
+    return jsonify(response = resp)
 
 @app.route('/joke', methods=['POST'])
 def dadjoke_ready():
@@ -78,7 +79,6 @@ def getJokesTold():
     for message in messages:
         results.append(message.serialize)
     return jsonify(jokesTold = results)
-
 
 
 if __name__ == '__main__':

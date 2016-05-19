@@ -1,12 +1,7 @@
 server {
-
+    
     listen 80;
-    server_name example.org;
-    charset utf-8;
-
-    location /static {
-        alias /usr/src/app/static;
-    }
+    charset utf-80;
 
     location / {
         proxy_pass http://web:8000;

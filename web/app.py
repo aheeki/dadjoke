@@ -26,13 +26,13 @@ from models import *
 
 @app.route('/jokeWeb', methods=['POST'])
 def jokeWeb():
-    phone = request.values.get('phone')
+    phone = request.json['phone']
     joke = newJoke(phone)
     resp = client.messages.create(to=phone, from_=app.config["TWILIO_PHONE"], body=joke)
     message = Message(resp.sid, phone, '', True)    
     db.session.add(message)
     db.session.commit()    
-    return jsonify(response = resp)
+    return request.json['phone']
 
 @app.route('/joke', methods=['POST'])
 def dadjoke_ready():

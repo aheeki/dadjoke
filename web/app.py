@@ -65,7 +65,7 @@ def newJoke(phoneNum):
     redis.sadd(phoneNum+'_timestamp', [rand, datetime.datetime.now()-timedelta(hours=5)])    
     rand = int(rand)
     # \n puts line break in sms
-    return jokes[rand] + '\n\n👔http://dadjokebot.com'
+    return jokes[rand] + '\n\n👔https://dadjokebot.com'
 
 @app.route('/pageviews', methods=['GET'])
 def getPageviews():

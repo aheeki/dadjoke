@@ -2,12 +2,12 @@ web:
   restart: always
   build: ./web
   ports:
-    - "8000:8000"
+    - "80:80"
   links:
     - postgres:postgres
     - redis:redis
   env_file: .env
-  command: /usr/local/bin/gunicorn -w 2 -b :8000 app:app
+  command: /usr/local/bin/gunicorn -w 2 -b :80 app:app
 
 data:
   image: postgres:latest

@@ -1,7 +1,7 @@
 server {
     
     listen 80;
-    charset utf-80;
+    charset utf-8;
 
     location / {
         proxy_pass http://web:8000;

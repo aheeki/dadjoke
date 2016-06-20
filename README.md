@@ -1,4 +1,4 @@
 # dadjoke
-ask and you shall receive a dad joke
 
+http://andrewheekin.com/dadjokebot
 Frontend project here: https://github.com/andrewheekin/dadjoke-frontend
